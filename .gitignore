@@ -1,13 +1,5 @@
-# macOS
-.DS_Store
-
-# Next.js (web/)
-web/node_modules
-web/.next
-web/out
-web/build
-web/next-env.d.ts
-web/*.tsbuildinfo
-web/.env*.local
-web/npm-debug.log*
-web/coverage
+node_modules
+.next
+out
+*.tsbuildinfo
+.vercel
