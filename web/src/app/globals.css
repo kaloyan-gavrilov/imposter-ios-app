@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #0e1020;
+  --color-background-deep: #070812;
+  --color-surface: #1b1e38;
+  --color-surface-raised: #2a2f54;
+  --color-ink: #f2f0e6;
+  --color-ink-dim: #8b90b8;
+  --color-accent: #f22299;
+  --color-accent-dark: #8e0f59;
+  --color-crew: #a8e10c;
+  --color-crew-dark: #5c7d06;
+  --color-imposter: #e5352b;
+  --color-imposter-dark: #7e1712;
+  --color-gold: #ffc93c;
+
+  --font-pixel: var(--font-press-start), ui-monospace, monospace;
+
+  /* No rounded corners anywhere in this design. */
+  --radius-none: 0px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-ink);
+  font-family: var(--font-pixel);
+  /* Pull-to-refresh mid-vote would be a disaster. */
+  overscroll-behavior: none;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+/* The whole app is a fixed-height shell with its own scroll regions, mirroring
+   the way SwiftUI screens own their scroll views. */
+.app-shell {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Hard-edged box: flat fill, 3px border, solid offset shadow. No blur, no radius. */
+.pixel-edge {
+  border-width: 3px;
+  border-style: solid;
+  box-shadow: 6px 6px 0 #000;
+}
+
+.pixel-press {
+  transition: transform 120ms ease-out;
+}
+
+.pixel-press:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 #000;
+}
+
+/* Reveal cards and ballot tiles must not select, callout, or drag on long-press. */
+.no-touch-callout {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Scroll regions keep the pixel look — no fading scrollbars over the art. */
+.hide-scrollbars {
+  scrollbar-width: none;
+}
+
+.hide-scrollbars::-webkit-scrollbar {
+  display: none;
+}
+
+/* iOS Safari zooms the viewport when an input smaller than 16px takes focus and
+   never zooms back, so inputs opt out of the pixel size ramp. */
+input {
+  font-size: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
